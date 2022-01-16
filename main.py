@@ -1,3 +1,4 @@
+import time
 import dotenv
 import os
 import requests
@@ -28,7 +29,7 @@ def send_message(tg_chat, bot, messages):
 
 
 def get_reviews(dvmn_token, tg_chat, bot):
-    payload = {"timestamp_to_request": ""}
+    payload = None
     while True:
         try:
             response = requests.get(
@@ -52,6 +53,7 @@ def get_reviews(dvmn_token, tg_chat, bot):
         except requests.exceptions.ReadTimeout:
             logger.exception("Перезапуск")
         except requests.exceptions.ConnectionError:
+            time.sleep(10)
             logger.exception("Нет соединения, переподключение.")
 
 
