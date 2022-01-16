@@ -39,7 +39,7 @@ def get_reviews(dvmn_token, tg_chat, bot):
             )
             response.raise_for_status()
             dvmn_response = response.json()
-            logger.info(response.json())
+            logger.info(dvmn_response)
             if dvmn_response["status"] == "found":
                 payload = {"timestamp": dvmn_response["last_attempt_timestamp"]}
                 messages = dvmn_response["new_attempts"]
