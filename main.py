@@ -7,7 +7,7 @@ import logging
 
 
 logging.basicConfig(filename="bot.log", level=logging.INFO)
-logger = logging.getLogger('logger')
+logger = logging.getLogger("logger")
 
 
 def send_message(tg_chat, bot, messages):
@@ -19,10 +19,8 @@ def send_message(tg_chat, bot, messages):
                 "\nПреподавателю всё понравилось, можно приступать к следубщему уроку!"
             )
         bot.send_message(
-            text="""Преподаватель проверил работу - "{0}"!\n{1}
-        {2}""".format(
-                message["lesson_title"], message["lesson_url"], result
-            ),
+            text=f"""Преподаватель проверил работу - "{message["lesson_title"]}"!\n{message["lesson_url"]}
+        {result}""",
             chat_id=tg_chat,
         )
         logger.info("Отправлено сообщение")
@@ -48,7 +46,11 @@ def get_reviews(dvmn_token, tg_chat, bot):
                 logger.info(messages)
             elif dvmn_response["status"] == "timeout":
                 payload = {"timestamp": dvmn_response["timestamp_to_request"]}
-                logger.info("Таймаут, перезапуск с меткой- {0}".format(dvmn_response["timestamp_to_request"]))
+                logger.info(
+                    "Таймаут, перезапуск с меткой- {0}".format(
+                        dvmn_response["timestamp_to_request"]
+                    )
+                )
 
         except requests.exceptions.ReadTimeout:
             logger.exception("Перезапуск")
