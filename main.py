@@ -27,7 +27,7 @@ def send_message(tg_chat, bot, messages):
         logger.info("Отправлено сообщение")
 
 
-def user_reviews(dvmn_token, tg_chat, bot):
+def get_reviews(dvmn_token, tg_chat, bot):
     payload = {"timestamp_to_request": ""}
     while True:
         try:
@@ -61,7 +61,7 @@ def main():
     tg_token = os.getenv("TG_TOKEN")
     tg_chat = os.getenv("TG_CHAT")
     bot = telegram.Bot(token=tg_token)
-    user_reviews(dvmn_token, tg_chat, bot)
+    get_reviews(dvmn_token, tg_chat, bot)
 
 
 if __name__ == "__main__":
