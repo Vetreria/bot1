@@ -6,7 +6,6 @@ import telegram
 import logging
 
 
-logging.basicConfig(filename="bot.log", level=logging.INFO)
 logger = logging.getLogger("logger")
 
 
@@ -60,6 +59,7 @@ def get_reviews(dvmn_token, tg_chat, bot):
 
 
 def main():
+    logging.basicConfig(filename="bot.log", level=logging.INFO)
     dotenv.load_dotenv()
     dvmn_token = os.getenv("DVMN_TOKEN")
     tg_token = os.getenv("TG_TOKEN")
