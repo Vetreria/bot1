@@ -61,9 +61,9 @@ def get_reviews(dvmn_token, tg_chat, bot):
 def main():
     logging.basicConfig(filename="bot.log", level=logging.INFO)
     dotenv.load_dotenv()
-    dvmn_token = os.environ("DVMN_TOKEN")
-    tg_token = os.environ("TG_TOKEN")
-    tg_chat = os.environ("TG_CHAT")
+    dvmn_token = os.environ["DVMN_TOKEN"]
+    tg_token = os.environ["TG_TOKEN"]
+    tg_chat = os.environ["TG_CHAT"]
     bot = telegram.Bot(token=tg_token)
     get_reviews(dvmn_token, tg_chat, bot)
 
