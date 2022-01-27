@@ -69,12 +69,14 @@ def main():
     dotenv.load_dotenv()
     dvmn_token = os.environ["DVMN_TOKEN"]
     tg_token = os.environ["TG_TOKEN"]
+    tg_log_token = os.environ["TG_LOG_TOKEN"]
     tg_chat = os.environ["TG_CHAT"]
     bot = telegram.Bot(token=tg_token)
+    log_bot = telegram.Bot(token=tg_log_token)
     class MyLogsHandler(logging.Handler):
         def emit(self, record):
             log_entry = self.format(record)
-            bot.send_message(chat_id=tg_chat, text=log_entry)
+            log_bot.send_message(chat_id=tg_chat, text=log_entry)
     tg_logger = MyLogsHandler()
     tg_logger.setLevel(logging.INFO)
     tg_logger.setFormatter(formatter)
