@@ -1,5 +1,3 @@
-from cgitb import text
-from plistlib import FMT_BINARY
 import time
 import dotenv
 import os
@@ -9,8 +7,6 @@ import logging
 
 
 logger = logging.getLogger("logger")
-
-
 
 
 def send_message(tg_chat, bot, messages):
@@ -43,7 +39,8 @@ def get_reviews(dvmn_token, tg_chat, bot):
             dvmn_response = response.json()
             logger.info('Получен ответ от dvmn.org')
             if dvmn_response["status"] == "found":
-                payload = {"timestamp": dvmn_response["last_attempt_timestamp"]}
+                payload = {
+                    "timestamp": dvmn_response["last_attempt_timestamp"]}
                 messages = dvmn_response["new_attempts"]
                 logger.info('Найден новый результат проверки!')
                 send_message(tg_chat, bot, messages)
@@ -60,11 +57,13 @@ def get_reviews(dvmn_token, tg_chat, bot):
 
         except requests.exceptions.ConnectionError:
             time.sleep(10)
-            logger.exception("Нет соединения с сетью, переподключение.", exc_info=False)
+            logger.exception(
+                "Нет соединения с сетью, переподключение.", exc_info=False)
 
 
 def main():
-    formatter = logging.Formatter("%(asctime)s - %(module)s - %(levelname)s - %(funcName)s: %(lineno)d - %(message)s")
+    formatter = logging.Formatter(
+        "%(asctime)s - %(module)s - %(levelname)s - %(funcName)s: %(lineno)d - %(message)s")
     logger.setLevel('INFO')
     dotenv.load_dotenv()
     dvmn_token = os.environ["DVMN_TOKEN"]
@@ -73,6 +72,7 @@ def main():
     tg_chat = os.environ["TG_CHAT"]
     bot = telegram.Bot(token=tg_token)
     log_bot = telegram.Bot(token=tg_log_token)
+
     class MyLogsHandler(logging.Handler):
         def emit(self, record):
             log_entry = self.format(record)
